@@ -1,4 +1,7 @@
-import sys, pygame
+import sys
+import pygame
+
+from gato import Gato
 
 
 def entrada():
@@ -6,46 +9,45 @@ def entrada():
     pygame.init()
 
     # Definimos dimensiones de la ventana
-    size = width, height = 600, 300
+    size = width, height = 555, 260
     screen = pygame.display.set_mode(size)
 
-    # Cambio el título de la ventana
+    # Cambiamos el título de la ventana
     pygame.display.set_caption("Gato juego")
 
-    # Inicializamos variables
-    speed = [1, 1]
-    fondo = 255,255,255
+    # Cambiamos el icono de la ventana
+    icono = pygame.image.load("res/walk/gato_walk1.png")
+    pygame.display.set_icon(icono)
 
-    # Crea un objeto imagen gato y obtengo su rectángulo
-    gato = pygame.image.load("gato.png")
-    gatorect = gato.get_rect()
+    # Cargamos el fondo de la ventana
+    fondo = pygame.image.load("res/elementos/fondo.jpg")
 
-    # Pongo el gato en el centro de la pantalla
-    gatorect.center = (width // 2, height - 28)
+    # Creamos una instancia de la clase Gato
+    gato = Gato()
 
+    # Bucle principal del juego
     run = True
     while run:
-        pygame.time.delay(10)
-
-        # Capturamos los eventos que se han producido
+         #Capturamos los eventos que se han producido
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
+             if event.type == pygame.QUIT:
+                 run = False
 
-        # Compruebo si se ha pulsado alguna tecla
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            gatorect = gatorect.move(-1, 0)
-        if keys[pygame.K_RIGHT]:
-            gatorect = gatorect.move(1, 0)
+    # Dibujamos el fondo
+    screen.blit(fondo, (0, 0))
+    # Actualizamos y dibujamos el gato
+    gato_frame, gato_rect = gato.walk()
+    screen.blit(gato_frame, gato_rect)
 
-        # Dibuja el fondo y el gato en la pantalla
-        screen.fill(fondo)
-        screen.blit(gato, gatorect)  # Dibuja el gato
-        pygame.display.flip()
+    # Actualizamos la pantalla
+    pygame.display.flip()
+
+    # Control de la velocidad de refresco
+    pygame.time.delay(20)
 
     # Salgo de pygame
     pygame.quit()
+
 
 
 if __name__ == '__main__':
