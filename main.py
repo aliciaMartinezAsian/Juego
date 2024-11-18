@@ -11,6 +11,7 @@ def entrada():
     # Definimos dimensiones de la ventana
     size = width, height = 555, 260
     screen = pygame.display.set_mode(size)
+    #screen = pygame.display.set_mode(size,pygame.FULLSCREEN)
 
     # Cambiamos el título de la ventana
     pygame.display.set_caption("Gato juego")
@@ -25,31 +26,37 @@ def entrada():
     # Creamos una instancia de la clase Gato
     gato = Gato()
 
+
+
     # Bucle principal del juego
-    run = True
-    while run:
-         #Capturamos los eventos que se han producido
+    running = True
+    while running:
         for event in pygame.event.get():
-             if event.type == pygame.QUIT:
-                 run = False
+            if event.type == pygame.QUIT:
+                running = False
+            #if event.type ==  pygame.K_ESCAPE:
+            #    running = False
 
-    # Dibujamos el fondo
-    screen.blit(fondo, (0, 0))
-    # Actualizamos y dibujamos el gato
-    gato_frame, gato_rect = gato.walk()
-    screen.blit(gato_frame, gato_rect)
+        # Obtiene el frame actual del gato y la posición
+        frame_actual, gatorect = gato.walk()
 
-    # Actualizamos la pantalla
-    pygame.display.flip()
+        # Dibuja el fondo en pantalla
+        screen.blit(fondo, (0, 0))  # Coloca el fondo en la esquina superior izquierda
 
-    # Control de la velocidad de refresco
-    pygame.time.delay(20)
+        # Dibuja el gato sobre el fondo
+        screen.blit(frame_actual, gatorect)
+        pygame.display.flip()
 
-    # Salgo de pygame
+        clock = pygame.time.Clock()
+        # Control de FPS
+        clock.tick(30)
     pygame.quit()
 
+    # Actualizamos y dibujamos el gato
+
+    # # Salgo de pygame
+    # pygame.quit()
 
 
 if __name__ == '__main__':
     entrada()
-
