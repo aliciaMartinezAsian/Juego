@@ -1,0 +1,3 @@
+WIDTH = 555
+HEIGHT = 260
+FPS = 60
