@@ -4,11 +4,11 @@ from constantes import WIDTH, HEIGHT
 
 class Obstaculo_cielo:
     def __init__(self):
-        self.width = 50
-        self.height = 50
+        self.width = 40
+        self.height = 40
         self.speed = 5
 
-        imagen_path = "res/elementos/roca.png"
+        imagen_path = "res/elementos/maceta.png"
 
         # Genera posición aleatoria en X
         self.x =  random.randint(0, WIDTH - self.width)
@@ -16,7 +16,7 @@ class Obstaculo_cielo:
 
         # Carga y escala la imagen
         self.imagen = pygame.image.load(imagen_path)
-        self.imagen = pygame.transform.scale(self.imagen, (self.width, self.height))
+        self.imagen = pygame.transform.scale(self.imagen, (60, 60))
 
     def mover(self):
         #Actualiza la posición del obstáculo.
